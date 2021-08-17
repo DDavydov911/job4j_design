@@ -2,11 +2,10 @@ language: java
 
 jdk:
   - openjdk14
+  - openjdk15
+  - oraclejdk15
 
 sudo: false
-
-script:
-  - mvn test -B
 
 env:
   global:
