@@ -4,7 +4,9 @@ jdk:
   - openjdk14
 
 sudo: false
-script: mvn clean verify
+
+script:
+  - mvn test -B
 
 env:
   global:
