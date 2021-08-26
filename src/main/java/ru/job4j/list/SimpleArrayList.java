@@ -17,17 +17,19 @@ public class SimpleArrayList<T> implements List<T> {
     @Override
     public void add(T value) {
         if (size == container.length) {
-            container = Arrays.copyOf(container, container.length * 2);
+            grow();
         }
         container[size++] = value;
         modCount++;
     }
 
+    private void grow() {
+        container = Arrays.copyOf(container, container.length * 2);
+    }
+
     @Override
     public T set(int index, T newValue) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, this.size());
         T oldE = container[index];
         container[index] = newValue;
         modCount++;
@@ -36,9 +38,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, this.size());
         T removedE = container[index];
         System.arraycopy(container, index + 1, container, index, size - index - 1);
         size--;
@@ -48,9 +48,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+        Objects.checkIndex(index, this.size());
         return container[index];
     }
 
@@ -61,7 +59,7 @@ public class SimpleArrayList<T> implements List<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             int cursor;
             int expectedModCount = modCount;
             @Override
