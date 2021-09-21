@@ -15,5 +15,8 @@ public class Binary {
         System.out.println(Binary.binary((int) Math.pow(2, 32) + 1));
         System.out.println(Binary.binary(Integer.MAX_VALUE));
         System.out.println(Binary.binary(Integer.MIN_VALUE));
+        System.out.println(Binary.binary(255));
+        System.out.println(Binary.binary(97));
+        System.out.println(Binary.binary(255 & 97));
     }
 }
