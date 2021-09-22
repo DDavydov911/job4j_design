@@ -23,7 +23,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private void expand() {
-        capacity += capacity >>> 1;
+        capacity *= 2;
         MapEntry<K, V>[] newTable = new MapEntry[capacity];
         for (MapEntry<K, V> pairs : table) {
             if (pairs != null) {
@@ -46,11 +46,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
             final int counter = modCount;
             @Override
             public boolean hasNext() {
-                if (point < count && table[point] != null) {
+                if (point < table.length && table[point] != null) {
                     return true;
                 }
                 for (int i = point; i < table.length; i++) {
-                    if (table[i] != null && point <= count) {
+                    if (table[i] != null) {
                         point = i;
                         return true;
                     }
@@ -99,7 +99,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean remove(K key) {
         int i = indexFor(hash(Objects.hashCode(key)));
-        if (table[i] != null) {
+        if (table[i] != null && table[i].key.equals(key)) {
             table[i] = null;
             count--;
             modCount++;
