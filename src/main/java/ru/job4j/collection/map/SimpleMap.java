@@ -89,10 +89,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int i = indexFor(hash(Objects.hashCode(key)));
-        if (table[i] == null) {
-            return  null;
-        } else {
+        if (table[i] != null && table[i].key.equals(key)) {
             return table[i].value;
+        } else {
+            return  null;
         }
     }
 
