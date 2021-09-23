@@ -13,8 +13,7 @@ public class SimpleTree<E> implements Tree<E> {
     public boolean add(E parent, E child) {
         boolean rsl = false;
         Optional<Node<E>> isParent = this.findBy(parent);
-        Optional<Node<E>> isChild = this.findBy(child);
-        if (isParent.isPresent() && isChild.isEmpty()) {
+        if (isParent.isPresent() && this.findBy(child).isEmpty()) {
             isParent.get().children.add(new Node<>(child));
             rsl = true;
         }
@@ -36,4 +35,19 @@ public class SimpleTree<E> implements Tree<E> {
         }
         return rsl;
     }
+
+//    public boolean isBinary() {
+//        boolean rsl = true;
+//        Queue<Node<E>> data = new LinkedList<>();
+//        data.offer(this.root);
+//        while (!data.isEmpty()) {
+//            Node<E> el = data.poll();
+//            if (el.children.size() > 2) {
+//                rsl = false;
+//                break;
+//            }
+//            data.addAll(el.children);
+//        }
+//        return rsl;
+//    }
 }
