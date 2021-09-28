@@ -13,7 +13,7 @@ public class ConfigTest {
         String path = "src/main/java/ru/job4j/Data/pair_without_comment.properties";
         Config config = new Config(path);
         config.load();
-        assertThat(config.value("name"),is("Petr Arsentev"));
+        assertThat(config.value("name"), is("Petr Arsentev"));
     }
 
     @Test
@@ -25,7 +25,7 @@ public class ConfigTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void  WhenIllegalArgument(){
+    public void whenIllegalArgument() {
         String path = "src/main/java/ru/job4j/Data/pair_without_comment.properties";
         Config config = new Config(path);
         config.load();
