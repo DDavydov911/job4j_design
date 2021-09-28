@@ -42,7 +42,6 @@ public class Config {
             throw new IllegalArgumentException();
         }
         try {
-            load();
             result = values.get(key);
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,12 +61,11 @@ public class Config {
     }
 
     public static void main(String[] args) {
-//        Config test = new Config("src/main/java/ru/job4j/Data/app.properties");
-//        Config test2 = new Config("src/main/java/ru/job4j/Data/pair_without_comment.properties");
-//        System.out.println("\n" + test.value("hibernate.connection.password"));
-//        System.out.println("\n" + test);
-//        System.out.println("\n" + new Config("src/main/java/ru/job4j/Data/pair_without_comment.properties"));
-//        System.out.println("\n" + test2.value("mainname"));
+        Config test = new Config("src/main/java/ru/job4j/Data/app.properties");
+        test.load();
+        System.out.println("\n" + test.value("hibernate.connection.password"));
+        System.out.println("\n" + test);
+        System.out.println("\n" + new Config("src/main/java/ru/job4j/Data/pair_without_comment.properties"));
     }
 
 }
