@@ -5,28 +5,25 @@ import java.util.Objects;
 
 public class Analizy {
     public void unavailable(String source, String target) {
-        try (BufferedReader br = new BufferedReader(new FileReader(source))) {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
-                StringBuilder temp = new StringBuilder();
-                String[] prev = {"0", "0"};
-                String next = br.readLine();
-                while (next != null) {
-                    String[] arr = next.split(" ");
-                    if ((Objects.equals(arr[0], "400") || Objects.equals(arr[0], "500"))
-                            && !(Objects.equals(prev[0], "400") || Objects.equals(prev[0], "500"))) {
-                        temp.append(arr[1]).append(";");
-                    }
-                    if (!(Objects.equals(arr[0], "400") || Objects.equals(arr[0], "500"))
-                            && (Objects.equals(prev[0], "400") || Objects.equals(prev[0], "500"))) {
-                        temp.append(arr[1]).append(";").append(System.lineSeparator());
-                    }
-                    prev = arr;
-                    next = br.readLine();
+        try (BufferedReader br = new BufferedReader(new FileReader(source));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
+            StringBuilder temp = new StringBuilder();
+            String[] prev = {"0", "0"};
+            String next = br.readLine();
+            while (next != null) {
+                String[] arr = next.split(" ");
+                if ((Objects.equals(arr[0], "400") || Objects.equals(arr[0], "500"))
+                        && !(Objects.equals(prev[0], "400") || Objects.equals(prev[0], "500"))) {
+                    temp.append(arr[1]).append(";");
                 }
-                bw.write(temp.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
+                if (!(Objects.equals(arr[0], "400") || Objects.equals(arr[0], "500"))
+                        && (Objects.equals(prev[0], "400") || Objects.equals(prev[0], "500"))) {
+                    temp.append(arr[1]).append(";").append(System.lineSeparator());
+                }
+                prev = arr;
+                next = br.readLine();
             }
+            bw.write(temp.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,14 +31,6 @@ public class Analizy {
     }
 
     public static void main(String[] args) {
-//        try (PrintWriter out = new PrintWriter(new FileOutputStream("unavailable.csv"))) {
-//            out.println("15:01:30;15:02:32");
-//            out.println("15:10:30;23:12:32");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-        //Пример 1
         Analizy sample1 = new Analizy();
         try (PrintWriter out = new PrintWriter(new FileOutputStream("logs1.csv"))) {
             out.println("200 10:56:01");
@@ -64,7 +53,6 @@ public class Analizy {
             e.printStackTrace();
         }
 
-        //Пример 2
         try (PrintWriter out = new PrintWriter(new FileOutputStream("logs2.csv"))) {
             out.println("200 10:56:01");
             out.println("500 10:57:01");
