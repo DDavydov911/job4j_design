@@ -15,7 +15,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     private List<Path> paths = new ArrayList<>();
 
     public List<Path> getPaths() {
-        for (FileProperty fileProperty : map.keySet()) {
+        for (var fileProperty : map.keySet()) {
             List<Path> temp = map.get(fileProperty);
             if (temp.size() > 1) {
                 paths.addAll(temp);

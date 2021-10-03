@@ -17,7 +17,7 @@ public class ArgsName {
     private void parse(String[] args) {
         for (String s : args) {
             String[] str = s.split("=");
-            if (str.length != 2) {
+            if (str.length != 2 || str[0].equals("")) {
                 throw new IllegalArgumentException();
             }
             values.put(str[0].substring(1), str[1]);
