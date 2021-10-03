@@ -7,19 +7,19 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
-    private HashSet<FileProperty> set = new HashSet<>();
+    private HashMap<FileProperty, List<Path>> map = new HashMap<>();
     private List<Path> paths = new ArrayList<>();
 
     public List<Path> getPaths() {
-        System.out.println("Поиск дубликатов файлов...");
-        if (paths.isEmpty()) {
-            System.out.println("Дубликаты не найдены");
-        } else {
-            System.out.println("Найдены следующие дубликаты:");
+        for (FileProperty fileProperty : map.keySet()) {
+            List<Path> temp = map.get(fileProperty);
+            if (temp.size() > 1) {
+                paths.addAll(temp);
+            }
         }
         return paths;
     }
@@ -29,10 +29,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         long size = Files.size(file);
         String name = file.getFileName().toString();
         FileProperty next = new FileProperty(size, name);
-        if (set.contains(next)) {
-            paths.add(file);
+        if (map.containsKey(next)) {
+            map.get(next).add(file);
+        } else {
+            ArrayList<Path> newList = new ArrayList<>();
+            newList.add(file);
+            map.put(next, newList);
         }
-        set.add(next);
         return FileVisitResult.CONTINUE;
     }
 }
