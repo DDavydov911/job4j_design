@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ArgsName {
@@ -22,12 +20,7 @@ public class ArgsName {
             if (str.length != 2) {
                 throw new IllegalArgumentException();
             }
-            for (int i = 0; i < str.length; i++) {
-                if (str[i].startsWith("-")) {
-                    str[i] = str[i].substring(1);
-                }
-            }
-            values.put(str[0], str[1]);
+            values.put(str[0].substring(1), str[1]);
         }
     }
 

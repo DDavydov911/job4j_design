@@ -17,6 +17,5 @@ public class DuplicatesFinder {
             System.out.println("Найдены следующие дубликаты:");
             list.forEach(System.out::println);
         }
-
     }
 }
