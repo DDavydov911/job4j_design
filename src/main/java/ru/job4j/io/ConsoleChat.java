@@ -31,31 +31,29 @@ public class ConsoleChat {
         String question = scanner.nextLine();
         while (true) {
             switch (question) {
-                case OUT -> {
+                case OUT:
                     logs.add(OUT);
                     saveLog(logs);
                     scanner.close();
                     return;
-                }
-                case STOP -> {
+                case STOP:
                     botInProgress = false;
                     logs.add(question);
-                }
-                case CONTINUE -> {
+                    break;
+                case CONTINUE:
                     logs.add(CONTINUE);
                     botInProgress = true;
                     ba = getBotAnswers();
                     System.out.println(ba);
                     logs.add(ba);
-                }
-                default -> {
+                    break;
+                default:
                     logs.add(question);
                     if (botInProgress) {
                         ba = getBotAnswers();
                         System.out.println(ba);
                         logs.add(ba);
                     }
-                }
             }
         }
 
