@@ -56,10 +56,6 @@ public class User {
         User user1 = new User("Ivan", 0, myCalendar);
         User user2 = new User("Ivan", 0, myCalendar);
         Object obj = new Object();
-//        Map<User, Object> map = new HashMap<>();
-//        map.put(user1, obj);
-//        map.put(user2, obj);
-//        System.out.println(map);
         System.out.println(user1.hashCode());
         System.out.println(user2.hashCode());
         System.out.println("a".hashCode());

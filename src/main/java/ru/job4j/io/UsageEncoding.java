@@ -26,17 +26,22 @@ public class UsageEncoding {
         }
     }
 
-//Новый способ без открытия и закрытия потока в цикле,
-// а полное создание файла в памяти и потом полная запись в файл в одном открытом потоке
-//    public void writeDataInFile(String path, List<String> data) {
-//        try (PrintWriter pw = new PrintWriter(
-//                new FileWriter(path, Charset.forName("WINDOWS-1251"), true)
-//        )) {
-//            data.forEach(pw::println);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    /**
+     * Новый способ без открытия и закрытия потока в цикле,
+     *  а полное создание файла в памяти и потом полная запись в файл в одном открытом потоке
+     *     public void writeDataInFile(String path, List<String> data) {
+     *         try (PrintWriter pw = new PrintWriter(
+     *                 new FileWriter(path, Charset.forName("WINDOWS-1251"), true)
+     *         )) {
+     *             data.forEach(pw::println);
+     *         } catch (IOException e) {
+     *             e.printStackTrace();
+     *         }
+     *     }
+     *
+     *     Поток открывается и закрывается на каждой итерации, что дорого
+     * @param args
+     */
 
     public static void main(String[] args) {
         String path = "./src/data/text.txt";
@@ -49,7 +54,7 @@ public class UsageEncoding {
                 "Новая строка 5"
         );
         for (String str : strings) {
-            encoding.writeDataInFile(path, str); //Поток открывается и закрывается на каждой итерации, что дорого
+            encoding.writeDataInFile(path, str);
         }
         String s = encoding.readFile(path);
         System.out.println("Данные из файла: ");

@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class CSVReader {
-    //    java -jar target/csvReader.jar -path=file.csv -delimiter=";"  -out=stdout -filter=name,age
     public static void handle(ArgsName argsName) throws Exception {
         String[] filters = argsName.get("filter").split(",");
         String delim = argsName.get("delimiter");
@@ -45,6 +44,12 @@ public class CSVReader {
         }
     }
 
+    /**
+     * В качестве параметров использовал эту строку для проверки работоспособности
+     * java -jar target/csvReader.jar -path=file.csv -delimiter=";"  -out=stdout -filter=name,age
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         ArgsName an = ArgsName.of(args);
         CSVReader.handle(an);

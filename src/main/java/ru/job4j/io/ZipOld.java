@@ -34,9 +34,9 @@ public class ZipOld {
                 new File("src/main/java/ru/job4j/question/Analize.java"),
                 out
         );
-//        packSingleFile(
-//                new File("src/main/java/ru/job4j/Trigger.java"),
-//                new File("./project.zip")
-//        );
+        packSingleFile(
+                new File("src/main/java/ru/job4j/Trigger.java"),
+                new File("./project.zip")
+        );
     }
 }

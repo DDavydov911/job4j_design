@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -84,7 +83,7 @@ public class ConsoleChat {
 
     public static void main(String[] args) {
         ConsoleChat cc = new ConsoleChat("conversations.txt", "botAnswers.txt");
-//        cc.phrases.forEach(System.out::println);
+        cc.phrases.forEach(System.out::println);
         cc.run();
     }
 }
