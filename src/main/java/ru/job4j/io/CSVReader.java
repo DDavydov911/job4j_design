@@ -9,25 +9,22 @@ import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class CSVReader {
-    public static void handle(ArgsName argsName) throws Exception {
+    public static void handle(ArgsName argsName) {
         String[] filters = argsName.get("filter").split(",");
         String delim = argsName.get("delimiter");
-
-        Scanner scanner = new Scanner(new FileInputStream(argsName.get("path")));
-        ArrayList<ArrayList<String>> allLines = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String nextLine = scanner.nextLine();
-            Scanner lineScanner = new Scanner(nextLine).useDelimiter(delim);
-            ArrayList<String> line = new ArrayList<>();
-            while (lineScanner.hasNext()) {
-                line.add(lineScanner.next());
+        try (Scanner scanner = new Scanner(new FileInputStream(argsName.get("path")));
+             PrintStream printStream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
+            ArrayList<ArrayList<String>> allLines = new ArrayList<>();
+            while (scanner.hasNext()) {
+                String nextLine = scanner.nextLine();
+                try (Scanner lineScanner = new Scanner(nextLine).useDelimiter(delim)) {
+                    ArrayList<String> line = new ArrayList<>();
+                    while (lineScanner.hasNext()) {
+                        line.add(lineScanner.next());
+                    }
+                    allLines.add(line);
+                }
             }
-            allLines.add(line);
-            lineScanner.close();
-        }
-        scanner.close();
-
-        try (PrintStream printStream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
             for (ArrayList<String> allLine : allLines) {
                 StringJoiner sj = new StringJoiner(delim);
                 for (int j = 0; j < allLine.size(); j++) {
@@ -39,6 +36,7 @@ public class CSVReader {
                 }
                 printStream.println(sj);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
