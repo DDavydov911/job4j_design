@@ -15,7 +15,11 @@ public class UsageEncoding {
         return builder.toString();
     }
 
-//    Старый способ
+    /**
+     * Старый способ
+     * @param path
+     * @param data
+     */
     public void writeDataInFile(String path, String data) {
         try (PrintWriter pw = new PrintWriter(
                 new FileWriter(path, Charset.forName("WINDOWS-1251"), true)

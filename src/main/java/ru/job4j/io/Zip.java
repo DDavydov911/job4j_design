@@ -10,8 +10,8 @@ import static ru.job4j.io.Search.*;
 
 /**
  * Шпаргалка аргументов коммандной строки
- * //java -jar pack.jar -d=c:\project\job4j\ -e=xml -o=project.zip
- * //java -jar pack.jar -d=C:\Users\Lenovo\IdeaProjects\job4j_design\src\main\java\ru\job4j\ -e=class -o=project.zip
+ * java -jar pack.jar -d=c:\project\job4j\ -e=xml -o=project.zip
+ * java -jar pack.jar -d=C:\Users\Lenovo\IdeaProjects\job4j_design\src\main\java\ru\job4j\ -e=class -o=project.zip
  */
 public class Zip {
 
