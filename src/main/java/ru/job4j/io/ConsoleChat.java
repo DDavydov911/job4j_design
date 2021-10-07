@@ -23,39 +23,36 @@ public class ConsoleChat {
 
     public void run() {
         boolean botInProgress = true;
-        Scanner scanner = new Scanner(System.in);
-
-        String ba;
-        System.out.println("Начните разговор с ботом");
-        String question = scanner.nextLine();
-        while (true) {
-            switch (question) {
-                case OUT:
-                    logs.add(OUT);
-                    saveLog(logs);
-                    scanner.close();
-                    return;
-                case STOP:
-                    botInProgress = false;
-                    logs.add(question);
-                    break;
-                case CONTINUE:
-                    logs.add(CONTINUE);
-                    botInProgress = true;
+        boolean isChatOn = true;
+        try (Scanner scanner = new Scanner(System.in)) {
+            String ba;
+            System.out.println("Начните разговор с ботом");
+            while (isChatOn) {
+                String question = scanner.nextLine();
+                switch (question) {
+                    case OUT:
+                        logs.add(OUT);
+                        saveLog(logs);
+                        isChatOn = false;
+                        break;
+                    case STOP:
+                        botInProgress = false;
+                        logs.add(question);
+                        break;
+                    case CONTINUE:
+                        logs.add(CONTINUE);
+                        botInProgress = true;
+                        break;
+                    default:
+                        logs.add(question);
+                }
+                if (botInProgress) {
                     ba = getBotAnswers();
                     System.out.println(ba);
                     logs.add(ba);
-                    break;
-                default:
-                    logs.add(question);
-                    if (botInProgress) {
-                        ba = getBotAnswers();
-                        System.out.println(ba);
-                        logs.add(ba);
-                    }
+                }
             }
         }
-
     }
 
     private List<String> readPhrases() {
