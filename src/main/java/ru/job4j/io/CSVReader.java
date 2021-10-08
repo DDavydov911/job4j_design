@@ -1,9 +1,6 @@
 package ru.job4j.io;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringJoiner;
@@ -14,8 +11,11 @@ public class CSVReader {
         String delim = argsName.get("delimiter");
         String outValue = argsName.get("out");
         ArrayList<ArrayList<String>> allLines = new ArrayList<>();
+
         try (Scanner scanner = new Scanner(new FileInputStream(argsName.get("path")));
-             PrintStream printStream = new PrintStream(new FileOutputStream(outValue))) {
+             PrintStream printStream = (outValue.equals("stdout")) ? new PrintStream(System.out)
+                     : new PrintStream(new FileOutputStream(outValue))
+        ) {
             while (scanner.hasNext()) {
                 String nextLine = scanner.nextLine();
                 try (Scanner lineScanner = new Scanner(nextLine).useDelimiter(delim)) {
@@ -27,24 +27,16 @@ public class CSVReader {
                 }
             }
             for (ArrayList<String> line : allLines) {
-                StringJoiner sj = new StringJoiner(delim);
+                StringJoiner stringJoiner = new StringJoiner(delim);
                 for (int j = 0; j < line.size(); j++) {
                     for (String filter : filters) {
                         if (filter.equals(allLines.get(0).get(j))) {
-                            if ("stdin".equals(outValue)) {
-                                System.out.println();
-                            }
-                            sj.add(line.get(j));
+                            stringJoiner.add(line.get(j));
                         }
                     }
                 }
-                if ("stdout".equals(outValue)) {
-                    System.out.println(sj);
-                } else {
-                    printStream.println(sj);
-                }
+                printStream.println(stringJoiner);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
