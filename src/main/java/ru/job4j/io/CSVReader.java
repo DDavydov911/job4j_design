@@ -12,9 +12,10 @@ public class CSVReader {
     public static void handle(ArgsName argsName) {
         String[] filters = argsName.get("filter").split(",");
         String delim = argsName.get("delimiter");
+        String outValue = argsName.get("out");
+        ArrayList<ArrayList<String>> allLines = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(argsName.get("path")));
-             PrintStream printStream = new PrintStream(new FileOutputStream(argsName.get("out")))) {
-            ArrayList<ArrayList<String>> allLines = new ArrayList<>();
+             PrintStream printStream = new PrintStream(new FileOutputStream(outValue))) {
             while (scanner.hasNext()) {
                 String nextLine = scanner.nextLine();
                 try (Scanner lineScanner = new Scanner(nextLine).useDelimiter(delim)) {
@@ -25,16 +26,23 @@ public class CSVReader {
                     allLines.add(line);
                 }
             }
-            for (ArrayList<String> allLine : allLines) {
+            for (ArrayList<String> line : allLines) {
                 StringJoiner sj = new StringJoiner(delim);
-                for (int j = 0; j < allLine.size(); j++) {
+                for (int j = 0; j < line.size(); j++) {
                     for (String filter : filters) {
                         if (filter.equals(allLines.get(0).get(j))) {
-                            sj.add(allLine.get(j));
+                            if ("stdin".equals(outValue)) {
+                                System.out.println();
+                            }
+                            sj.add(line.get(j));
                         }
                     }
                 }
-                printStream.println(sj);
+                if ("stdout".equals(outValue)) {
+                    System.out.println(sj);
+                } else {
+                    printStream.println(sj);
+                }
             }
 
         } catch (IOException e) {
@@ -45,6 +53,7 @@ public class CSVReader {
     /**
      * В качестве параметров использовал эту строку для проверки работоспособности
      * java -jar target/csvReader.jar -path=file.csv -delimiter=";"  -out=stdout -filter=name,age
+     *
      * @param args
      * @throws Exception
      */
