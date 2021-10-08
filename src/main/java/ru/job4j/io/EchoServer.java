@@ -6,6 +6,7 @@ import java.net.Socket;
 
 /**
  * cd c:\Tools\curl-7.79.1-win64-mingw\bin\
+ * curl -i http://localhost:9000/?msg=Hello
  */
 public class EchoServer {
     public static void main(String[] args) throws IOException {
@@ -20,8 +21,11 @@ public class EchoServer {
                         String str = in.readLine();
                         System.out.println(str);
                         if (str.contains("msg=Bye")) {
-                            System.out.println("GetBye");
+                            System.out.println("GoodBye");
                             server.close();
+                        } else if (str.contains("?msg")) {
+                            String reply = str.split("[= ]")[2] + "\r\n";
+                            out.write(reply.getBytes());
                         }
                     }
                     out.flush();
