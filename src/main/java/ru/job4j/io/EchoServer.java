@@ -24,12 +24,12 @@ public class EchoServer {
                     while (in.ready()) {
                         String str = in.readLine();
                         System.out.println(str);
-                        if (str.contains("msg=Bye")) {
-                            System.out.println("GoodBye");
+                        if (str.contains("msg=Hello")) {
+                            out.write("Hello\r\n".getBytes());
+                        } else if (str.contains("Exit")) {
                             server.close();
-                        } else if (str.contains("?msg")) {
-                            String reply = str.split("[= ]")[2] + "\r\n";
-                            out.write(reply.getBytes());
+                        } else if (str.contains("msg=")) {
+                            out.write("What\r\n".getBytes());
                         }
                     }
                     out.flush();
