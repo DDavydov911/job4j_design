@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<client name="Jhon" id="1" resident="true">
+    <contact phone="999-999"/>
+    <projects>
+        <project>building</project>
+        <project>education</project>
+        <project>food</project>
+    </projects>
+</client>
