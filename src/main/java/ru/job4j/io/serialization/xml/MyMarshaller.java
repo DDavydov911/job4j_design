@@ -41,6 +41,5 @@ public class MyMarshaller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        }
     }
 }
