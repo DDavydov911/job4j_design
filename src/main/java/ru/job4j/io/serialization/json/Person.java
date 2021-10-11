@@ -49,4 +49,12 @@ public class Person {
                 + ", statuses=" + Arrays.toString(statuses)
                 + '}';
     }
+
+    public boolean isSex() {
+        return sex;
+    }
+
+    public int getAge() {
+        return age;
+    }
 }

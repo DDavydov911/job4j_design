@@ -2,8 +2,11 @@ package ru.job4j.io.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Client {
     String name;
@@ -40,6 +43,16 @@ public class Client {
         System.out.println(jsonstr);
         Client clientFromJson = gson.fromJson(jsonstr, Client.class);
         System.out.println(clientFromJson);
+
+        List<String> list = List.of("hi", "fi");
+        JSONObject jhonObject = new JSONObject();
+        jhonObject.put("name", first.name);
+        jhonObject.put("id", first.id);
+        jhonObject.put("resident", first.resident);
+        jhonObject.put("contact", new Contact("888888"));
+        jhonObject.put("projects", first.projects);
+        System.out.println(jhonObject);
+        System.out.println(new JSONArray(list));
     }
 
 }
