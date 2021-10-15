@@ -38,21 +38,40 @@ public class Client {
         Client first = new Client("Jhon", 1, true,
                 new Contact("999-999"), "building", "education", "food");
 
-        Gson gson = new GsonBuilder().create();
-        String jsonstr = gson.toJson(first);
-        System.out.println(jsonstr);
-        Client clientFromJson = gson.fromJson(jsonstr, Client.class);
-        System.out.println(clientFromJson);
-
-        List<String> list = List.of("hi", "fi");
-        JSONObject jhonObject = new JSONObject();
-        jhonObject.put("name", first.name);
-        jhonObject.put("id", first.id);
-        jhonObject.put("resident", first.resident);
-        jhonObject.put("contact", new Contact("888888"));
-        jhonObject.put("projects", first.projects);
+//        Gson gson = new GsonBuilder().create();
+//        String jsonstr = gson.toJson(first);
+//        System.out.println(jsonstr);
+//        Client clientFromJson = gson.fromJson(jsonstr, Client.class);
+//        System.out.println(clientFromJson);
+//
+//        List<String> list = List.of("hi", "fi");
+        JSONObject jhonObject = new JSONObject(first);
+//        jhonObject.put("name", first.name);
+//        jhonObject.put("id", first.id);
+//        jhonObject.put("resident", first.resident);
+//        jhonObject.put("contact", new Contact("888888"));
+//        jhonObject.put("projects", first.projects);
         System.out.println(jhonObject);
-        System.out.println(new JSONArray(list));
+//        System.out.println(new JSONArray(list));
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isResident() {
+        return resident;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public String[] getProjects() {
+        return projects;
+    }
 }
