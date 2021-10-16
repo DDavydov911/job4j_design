@@ -37,22 +37,29 @@ public class Client {
     public static void main(String[] args) {
         Client first = new Client("Jhon", 1, true,
                 new Contact("999-999"), "building", "education", "food");
+/**
+ *         Gson gson = new GsonBuilder().create();
+ *         String jsonstr = gson.toJson(first);
+ *         System.out.println(jsonstr);
+ *         Client clientFromJson = gson.fromJson(jsonstr, Client.class);
+ *         System.out.println(clientFromJson);
+ */
 
-//        Gson gson = new GsonBuilder().create();
-//        String jsonstr = gson.toJson(first);
-//        System.out.println(jsonstr);
-//        Client clientFromJson = gson.fromJson(jsonstr, Client.class);
-//        System.out.println(clientFromJson);
-//
-//        List<String> list = List.of("hi", "fi");
+
+        List<String> list = List.of("hi", "fi");
         JSONObject jhonObject = new JSONObject(first);
-//        jhonObject.put("name", first.name);
-//        jhonObject.put("id", first.id);
-//        jhonObject.put("resident", first.resident);
-//        jhonObject.put("contact", new Contact("888888"));
-//        jhonObject.put("projects", first.projects);
+ /**
+ * jhonObject.put("name", first.name);
+ *         jhonObject.put("id", first.id);
+ *         jhonObject.put("resident", first.resident);
+ *         jhonObject.put("contact", new Contact("888888"));
+ *         jhonObject.put("projects", first.projects);
+ */
+
         System.out.println(jhonObject);
-//        System.out.println(new JSONArray(list));
+ /**
+ * System.out.println(new JSONArray(list));
+ */
     }
 
     public String getName() {
