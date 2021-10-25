@@ -25,10 +25,10 @@
 --cars_id int references cars_garage(id)
 --);
 
-insert into cars_owners(name) values(Ivanov_Ivan_Ivanovich);
-insert into cars_passports(reg_number, pas_number) values(A100AA177, 1234567);
-insert into cars_garage(owner_id, passport_id, model, reg_number) values(1, 1, Audi100, A100AA177);
-insert into cars_drivers(name, licence, cars_id) values (Petrov_Sergey_Alekseevich, 77111111, 1);
+insert into cars_owners(name) values('Ivanov Ivan_Ivanovich');
+insert into cars_passports(reg_number, pas_number) values('A100AA177', 1234567);
+insert into cars_garage(owner_id, passport_id, model, reg_number) values(1, 1, 'Audi100', 'A100AA177');
+insert into cars_drivers(name, licence, cars_id) values ('Petrov Sergey Alekseevich', 77111111, 1);
 select * from cars_owners;
 select * from cars_passports;
 select * from cars_garage;
