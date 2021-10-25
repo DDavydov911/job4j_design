@@ -32,4 +32,4 @@ insert into cars_drivers(name, licence, cars_id) values ('Petrov Sergey Alekseev
 select * from cars_owners;
 select * from cars_passports;
 select * from cars_garage;
-select * from cars_driver
+select * from cars_drivers;
