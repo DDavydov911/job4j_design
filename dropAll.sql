@@ -1,0 +1,9 @@
+DROP TABLE item;
+DROP TABLE state;
+DROP TABLE category;
+DROP TABLE attachs;
+DROP TABLE comments;
+DROP TABLE roles_rules;
+DROP TABLE rules;
+DROP TABLE users;
+DROP TABLE roles;
