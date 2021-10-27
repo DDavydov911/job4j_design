@@ -22,16 +22,6 @@ roles_id int REFERENCES rules(id),
 rules_id int REFERENCES roles(id)
 );
 
-CREATE TABLE comments(
-id serial primary key,
-comment text
-);
-
-CREATE TABLE attachs(
-id serial primary key,
-smth text
-);
-
 CREATE TABLE category(
 id serial primary key,
 name varchar(255)
@@ -46,9 +36,18 @@ CREATE TABLE item(
 id serial primary key,
 description text,
 users_id int REFERENCES users(id),
-comments_id int REFERENCES comments(id),
-attachs_id int REFERENCES attachs(id),
 category_id int REFERENCES category(id),
 state_id int REFERENCES state(id)
 );
 
+CREATE TABLE comments(
+id serial primary key,
+comment text,
+item_id int REFERENCES item(id)
+);
+
+CREATE TABLE attachs(
+id serial primary key,
+smth text,
+item_id int REFERENCES item(id)
+);
