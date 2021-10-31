@@ -22,14 +22,42 @@ INSERT INTO product(name, type_id, expired_date, price) values('СЫР МААС�
 ('ХЛЕБ РЖАНОЙ', 3, '08.11.2021', 39.50), ('КОЛБАСА ДОКТОРСКАЯ', 4, '17.11.2021', 230.90),
 ('КОЛБАСА ВАРЕНАЯ', 4, '21.11.2021', 210.00), ('СЕРВЕЛАТ', 4, '24.01.2022', 482.70),
 ('БУЖЕНИНА', 4, '14.11.2021', 444.88), ('ОКОРОК СВИНОЙ', 4, '19.11.2021', 399.00);
-INSERT INTO product(name, type_id, expired_date, price) values;
 
-SELECT * FROM product WHERE type_id=1;
-SELECT p.name, p.expired_date, p.price FROM product p JOIN type t ON p.type_id=t.id WHERE t.name='СЫР';
-SELECT p.name, p.expired_date, p.price FROM product p JOIN type t ON p.type_id=t.id WHERE p.name LIKE '%МОРОЖЕНОЕ%';
-SELECT p.name, p.expired_date, p.price FROM product p JOIN type t ON p.type_id=t.id WHERE p.expired_date<current_date;
-SELECT max(p.price) FROM product p JOIN type t ON p.type_id=t.id;
-SELECT name, price, expired_date FROM product WHERE price = (SELECT max(price) FROM product);
-SELECT p.name, p.expired_date, p.price FROM product p JOIN type t ON p.type_id=t.id WHERE t.name='СЫР' OR t.name='МОЛОКО';
-SELECT t.name, count(p.name) FROM product p JOIN type t ON p.type_id=t.id group by t.name;
-SELECT p.name, t.name FROM product p JOIN type t ON p.type_id=t.id;
+SELECT * FROM product
+WHERE type_id=1;
+
+SELECT p.name, p.expired_date, p.price
+FROM product p
+JOIN type t ON p.type_id=t.id
+WHERE t.name='СЫР';
+
+SELECT p.name, p.expired_date, p.price
+FROM product p
+JOIN type t ON p.type_id=t.id
+WHERE p.name LIKE '%МОРОЖЕНОЕ%';
+
+SELECT p.name, p.expired_date, p.price
+FROM product p
+JOIN type t ON p.type_id=t.id
+WHERE p.expired_date<current_date;
+
+SELECT max(p.price)
+FROM product p
+JOIN type t ON p.type_id=t.id;
+
+SELECT name, price, expired_date
+FROM product
+WHERE price = (SELECT max(price) FROM product);
+
+SELECT p.name, p.expired_date, p.price
+FROM product p
+JOIN type t ON p.type_id=t.id
+WHERE t.name='СЫР' OR t.name='МОЛОКО';
+
+SELECT t.name, count(p.name)
+FROM product p
+JOIN type t ON p.type_id=t.id group by t.name;
+
+SELECT p.name, t.name
+FROM product p
+JOIN type t ON p.type_id=t.id;
