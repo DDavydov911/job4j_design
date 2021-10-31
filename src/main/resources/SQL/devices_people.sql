@@ -25,7 +25,7 @@ insert into people(name) values('Ivan'), ('Fedor'), ('Maria'), ('Semen'), ('Olga
 insert into devices_people(device_id, people_id) values(1, 1), (2, 2), (3, 3), (4, 4),
 (5, 5), (6, 6), (7, 7), (12, 1), (12, 2), (12, 3), (8, 4), (9, 5), (10, 6), (11, 7);
 
-select avg(d.price) from devices d group by d.price;
+select avg(d.price) from devices d;
 
 select p.name, avg(d.price) from devices_people dp join people p on
 p.id = dp.people_id join devices d on d.id=dp.device_id group by p.name;
