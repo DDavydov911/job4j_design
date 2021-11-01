@@ -1,0 +1,63 @@
+CREATE TABLE engine(
+number varchar(12) unique
+);
+
+CREATE TABLE body(
+number varchar(12) unique
+);
+
+CREATE TABLE transmission(
+number varchar(12) unique
+);
+
+CREATE TABLE cars(
+id serial primary key,
+engine varchar(12) REFERENCES engine(number),
+body varchar(12) REFERENCES body(number),
+transmission varchar(12) REFERENCES transmission(number),
+);
+
+INSERT INTO engine(number) VALUES('AAA111NNN001'),
+('AAA111NNN002'), ('AAA111NNN003'), ('AAA111NNN004'),
+('AAA111NNN005'), ('AAA111NNN006'), ('AAA111NNN007'),
+('AAA111NNN008'), ('AAA111NNN009'), ('AAA111NNN010'),
+('AAA111NNN011'), ('AAA111NNN012'), ('AAA111NNN013');
+
+INSERT INTO body(number) VALUES('BBB111NNN001'),
+('BBB111NNN002'), ('BBB111NNN003'), ('BBB111NNN004'),
+('BBB111NNN005'), ('BBB111NNN006'), ('BBB111NNN007'),
+('BBB111NNN008'), ('BBB111NNN009'), ('BBB111NNN010'),
+('BBB111NNN011'), ('BBB111NNN012'), ('BBB111NNN013');
+
+INSERT INTO transmission(number) VALUES('TTT111NNN001'),
+('TTT111NNN002'), ('TTT111NNN003'), ('TTT111NNN004'),
+('TTT111NNN005'), ('TTT111NNN006'), ('TTT111NNN007'),
+('TTT111NNN008'), ('TTT111NNN009'), ('TTT111NNN010'),
+('TTT111NNN011'), ('TTT111NNN012'), ('TTT111NNN013');
+
+INSERT INTO cars(engine, body, transmission)
+VALUES ('AAA111NNN001', 'BBB111NNN001', 'TTT111NNN001'),
+('AAA111NNN002', 'BBB111NNN002', 'TTT111NNN002'),
+('AAA111NNN003', 'BBB111NNN003', 'TTT111NNN003'),
+('AAA111NNN004', 'BBB111NNN004', 'TTT111NNN004'),
+('AAA111NNN005', 'BBB111NNN005', 'TTT111NNN005');
+
+SELECT * FROM cars;
+
+SELECT e.number
+FROM engine e
+LEFT JOIN cars c
+ON e.number=c.engine
+WHERE c.engine IS NULL;
+
+SELECT b.number
+FROM body b
+LEFT JOIN cars c
+ON b.number=c.body
+WHERE c.body IS NULL;
+
+SELECT t.number
+FROM transmission t
+LEFT JOIN cars c
+ON t.number=c.transmission
+WHERE c.transmission IS NULL;
