@@ -24,6 +24,9 @@ public class ImportDB {
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
             rd.lines().forEach(line -> {
                 String[] arr = line.split(";");
+                if (arr.length != 2) {
+                    throw new IllegalArgumentException("Incorrect number of properties.");
+                }
                 users.add(new User(arr[0], arr[1]));
             });
         }
