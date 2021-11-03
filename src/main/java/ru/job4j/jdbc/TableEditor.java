@@ -1,7 +1,6 @@
 package ru.job4j.jdbc;
 
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
 import java.util.Properties;
 import java.util.StringJoiner;
@@ -19,76 +18,62 @@ public class TableEditor implements AutoCloseable {
 
     private void initConnection() {
         try {
-            properties.load(new FileReader("app.properties"));
             connection = DriverManager.getConnection(
                     properties.getProperty("url"),
                     properties.getProperty("login"),
                     properties.getProperty("password")
             );
-        } catch (IOException | SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void createTable(String tableName) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "CREATE TABLE IF NOT EXISTS %s();",
-                    tableName
-            );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        }
+    public void createTable(String tableName) {
+        execute(tableName, String.format(
+                "CREATE TABLE IF NOT EXISTS %s();", tableName
+        ));
     }
 
     public void dropTable(String tableName) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String sql = String.format(
-                    "DROP TABLE IF EXISTS %s;",
-                    tableName
+                    "DROP TABLE IF EXISTS %s;", tableName
             );
             statement.execute(sql);
         }
     }
 
-    public void addColumn(String tableName, String columnName, String type) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "ALTER TABLE %s%n"
-                            + "ADD COLUMN %s %s;",
-                    tableName, columnName, type
-            );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        }
+    public void addColumn(String tableName, String columnName, String type) {
+        execute(tableName, String.format(
+                "ALTER TABLE %s ADD COLUMN %s %s;",
+                tableName, columnName, type
+        ));
     }
 
-    public void dropColumn(String tableName, String columnName) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "alter table %s%n"
-                            + "drop column %s;",
-                    tableName, columnName
-            );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        }
+    public void dropColumn(String tableName, String columnName) {
+        execute(tableName, String.format(
+                "ALTER TABLE %s DROP COLUMN %s;",
+                tableName, columnName
+        ));
     }
 
     public void renameColumn(
             String tableName, String columnName, String newColumnName
-    ) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "ALTER TABLE %s%n"
-                            + "RENAME %s TO %s;",
-                            tableName, columnName, newColumnName
-            );
-            statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
-        }
+    ) {
+        execute(tableName, String.format(
+                "ALTER TABLE %s RENAME %s TO %s;",
+                tableName, columnName, newColumnName
+        ));
     }
 
+    private void execute(String tableName, String sql) {
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(sql);
+            System.out.println(getTableScheme(connection, tableName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static String getTableScheme(
             Connection connection, String tableName
@@ -119,7 +104,11 @@ public class TableEditor implements AutoCloseable {
     }
 
     public static void main(String[] args) throws Exception {
-        TableEditor te = new TableEditor(new Properties());
+        Properties properties = new Properties();
+        try (FileReader fr = new FileReader("app.properties")) {
+            properties.load(fr);
+        }
+        TableEditor te = new TableEditor(properties);
         te.initConnection();
         te.createTable("TETable");
         te.addColumn("TETable", "id", "serial primary key");
