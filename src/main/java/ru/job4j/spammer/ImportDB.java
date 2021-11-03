@@ -37,7 +37,7 @@ public class ImportDB {
                 cfg.getProperty("jdbc.username"),
                 cfg.getProperty("jdbc.password")
         )) {
-            for (User user : users) {  //update cities set name = ?, population = ? where id = ?
+            for (User user : users) {
                 try (PreparedStatement ps = cnt.prepareStatement(
                         "INSERT INTO users(name, email) VALUES(?, ?);")
                 ) {
