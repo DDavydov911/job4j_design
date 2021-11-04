@@ -29,29 +29,26 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) {
-        execute(tableName, String.format(
+        execute(String.format(
                 "CREATE TABLE IF NOT EXISTS %s();", tableName
         ));
     }
 
-    public void dropTable(String tableName) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "DROP TABLE IF EXISTS %s;", tableName
-            );
-            statement.execute(sql);
-        }
+    public void dropTable(String tableName) {
+        execute(String.format(
+                "DROP TABLE IF EXISTS %s;", tableName
+        ));
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-        execute(tableName, String.format(
+        execute(String.format(
                 "ALTER TABLE %s ADD COLUMN %s %s;",
                 tableName, columnName, type
         ));
     }
 
     public void dropColumn(String tableName, String columnName) {
-        execute(tableName, String.format(
+        execute(String.format(
                 "ALTER TABLE %s DROP COLUMN %s;",
                 tableName, columnName
         ));
@@ -60,16 +57,15 @@ public class TableEditor implements AutoCloseable {
     public void renameColumn(
             String tableName, String columnName, String newColumnName
     ) {
-        execute(tableName, String.format(
+        execute(String.format(
                 "ALTER TABLE %s RENAME %s TO %s;",
                 tableName, columnName, newColumnName
         ));
     }
 
-    private void execute(String tableName, String sql) {
+    private void execute(String sql) {
         try (Statement statement = connection.createStatement()) {
             statement.execute(sql);
-            System.out.println(getTableScheme(connection, tableName));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,11 +107,18 @@ public class TableEditor implements AutoCloseable {
         TableEditor te = new TableEditor(properties);
         te.initConnection();
         te.createTable("TETable");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.addColumn("TETable", "id", "serial primary key");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.addColumn("TETable", "name", "varchar(255)");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.addColumn("TETable", "fullName", "varchar(355)");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.renameColumn("TETable", "fullName", "full_name");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.dropColumn("TETable", "full_name");
+        System.out.println(getTableScheme(te.connection, "TETable"));
         te.dropTable("TETable");
+        te.close();
     }
 }
